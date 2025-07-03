@@ -8,7 +8,7 @@
 
 This repository contains a project designed to enhance the pedagogical approach to teaching **Numerical Analysis**. The project seeks to provide **interactive tools** and **educational content** to improve the understanding of core concepts in Numerical Analysis, including techniques such as solving systems of linear equations, linear and polynomial regression, root-finding algorithms, numerical integration, and differential equations. It utilizes **Manim** for animation generation and aims to deliver clear, beginner-friendly videos and interactive web-based applications to help students gain a deeper understanding of these mathematical methods.
 
-**Project ID:** R&D NA N°2
+**Project ID:** R&D NA N°2-2
 
 ### Supervisor:
     Afif Beji, Ing., M.Sc.
