@@ -1,0 +1,25 @@
+# Symfony standard ignores
+/vendor/
+/var/cache/*
+/var/log/*
+/var/sessions/*
+!/var/cache/.gitkeep
+!/var/log/.gitkeep
+!/var/sessions/.gitkeep
+/public/bundles/
+.env.local
+.env.local.php
+.env.*.local
+.phpunit.result.cache
+/phpunit.xml
+
+# Ignore Python venv and large model (to prevent errors)
+venv/
+quiz_generator_model/model.safetensors
+
+# Other common ignores
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.log

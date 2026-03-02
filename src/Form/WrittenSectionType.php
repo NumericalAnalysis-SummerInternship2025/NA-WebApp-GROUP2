@@ -1,0 +1,78 @@
+<?php
+
+namespace App\Form;
+
+use App\Entity\WrittenSection;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType; // Add this for URL fields
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
+
+class WrittenSectionType extends AbstractType
+{
+    public function buildForm(FormBuilderInterface $builder, array $options): void
+    {
+        $builder
+            ->add('content', TextareaType::class, [
+                'label' => 'Written Content',
+                'attr' => [
+                    'class' => 'form-control rich-text-editor',
+                    'rows' => 5,
+                    'data-ckeditor' => 'true', // Custom attribute for JS initialization
+                ],
+                'required' => false,
+                'help' => 'Use headings, images, GIFs, emojis, and LaTeX (e.g., \\( x^2 \\)) for mathematical expressions.',
+            ])
+            ->add('mediaUploads', CollectionType::class, [
+                'entry_type' => FileType::class,
+                'entry_options' => [
+                    'label' => 'Media File',
+                    'required' => false,
+                    'constraints' => [
+                        new File([
+                            'maxSize' => '100M',
+                            'mimeTypes' => ['image/jpeg', 'image/png', 'image/gif', 'video/mp4', 'video/webm', 'video/ogg'],
+                            'mimeTypesMessage' => 'Please upload a valid image (JPG, PNG, GIF) or video (MP4, WebM, OGG)',
+                        ]),
+                    ],
+                    'attr' => ['class' => 'form-control'],
+                ],
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false,
+                'prototype' => true,
+                'required' => false,
+                'label' => 'Media Files (Images, GIFs, Videos)',
+                'mapped' => false, // Since mediaUploads are handled manually in the controller
+            ])
+            ->add('mediaUrls', CollectionType::class, [
+                'entry_type' => UrlType::class,
+                'entry_options' => [
+                    'label' => false,
+                    'required' => false,
+                    'attr' => [
+                        'class' => 'form-control media-url',
+                        'placeholder' => 'e.g., https://example.com/image.jpg or https://example.com/video.mp4',
+                    ],
+                ],
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false,
+                'prototype' => true,
+                'required' => false,
+                'label' => 'Media URLs (External Links)',
+                'mapped' => false, // Will be processed manually in the controller
+            ]);
+    }
+
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'data_class' => WrittenSection::class,
+        ]);
+    }
+}
